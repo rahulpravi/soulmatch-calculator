@@ -9,12 +9,17 @@
 
 ## 📱 Screenshots
 
-| Home Screen | Result Screen |
-|:---:|:---:|
-| <img src="./screenshots/home.png" width="250" /> | <img src="./screenshots/result.png" width="250" /> |
-| *Enter Names* | *View Compatibility* |
+Check out the **Light Mode** vs **Dark Mode** design:
 
-*(Note: Upload your images to a 'screenshots' folder and name them home.png and result.png)*
+### 🏠 Home Screen
+| Light Mode ☀️ | Dark Mode 🌙 |
+|:---:|:---:|
+| <img src="./screenshots/home-light.png" width="250" /> | <img src="./screenshots/home-dark.png" width="250" /> |
+
+### 💘 Result Screen
+| Light Mode ☀️ | Dark Mode 🌙 |
+|:---:|:---:|
+| <img src="./screenshots/result-light.png" width="250" /> | <img src="./screenshots/result-dark.png" width="250" /> |
 
 ---
 
