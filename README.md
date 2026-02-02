@@ -1,7 +1,6 @@
 # 💘 SoulMatch: Love Compatibility Calculator
 
 ![App Banner](./screenshots/banner.png)
-*(Note: You can replace this link with your own banner image later)*
 
 **SoulMatch** is a fun and interactive mobile application built with **React Native & Expo** that calculates relationship compatibility using a classic pyramid reduction algorithm. It allows users to test the chemistry between two names and get a compatibility percentage!
 
