@@ -44,3 +44,12 @@ To run this project locally:
    ```bash
    git clone [https://github.com/rahulpravi/soulmatch-calculator.git](https://github.com/rahulpravi/soulmatch-calculator.git)
    cd soulmatch-calculator
+## 📥 Download App
+
+Click below to download the Android APK directly:
+
+<a href="LINK_PASTE_HERE">
+  <img src="https://img.shields.io/badge/Download-APK-success?style=for-the-badge&logo=android&logoColor=white&color=3DDC84" alt="Download APK" height="50" />
+</a>
+
+---
