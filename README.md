@@ -1,6 +1,6 @@
 # 💘 SoulMatch: Love Compatibility Calculator
 
-![App Banner] (./screenshots/l-home.jpg)
+![App Banner](./screenshots/banner.png)
 *(Note: You can replace this link with your own banner image later)*
 
 **SoulMatch** is a fun and interactive mobile application built with **React Native & Expo** that calculates relationship compatibility using a classic pyramid reduction algorithm. It allows users to test the chemistry between two names and get a compatibility percentage!
@@ -54,5 +54,13 @@ Click below to download the Android APK directly:
 <a href="https://drive.google.com/file/d/1F0kPYudFSnOkGKcCJLHPC3waWx7SAMAx/view?usp=drivesdk">
   <img src="https://img.shields.io/badge/Download-APK-success?style=for-the-badge&logo=android&logoColor=white&color=3DDC84" alt="Download APK" height="50" />
 </a>
+
+---
+
+## 🌐 Connect with Me
+
+[![Facebook](https://img.shields.io/badge/Facebook-%231877F2.svg?style=for-the-badge&logo=Facebook&logoColor=white)](https://www.facebook.com/share/18PKwaQNjX/)
+[![LinkedIn](https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/rahul-pr-334561226)
+[![Gmail](https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:rahulpravi1999@gmail.com)
 
 ---
