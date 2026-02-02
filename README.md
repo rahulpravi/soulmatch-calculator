@@ -12,12 +12,12 @@
 Check out the **Light Mode** vs **Dark Mode** design:
 
 ### 🏠 Dark Mode 🌙
-| <img src="./screenshots/d-home.jpg" width="250" /> | <img src="./screenshots/d-cal.jpg" width="250" /> |
+<img src="./screenshots/d-home.jpg" width="250" />  <img src="./screenshots/d-cal.jpg" width="250" /> <img src="./screenshots/d-result.jpg" width="250" /> <img src="./screenshots/d-mod.jpg" width="250" /> <img src="./screenshots/settings.jpg" width="250" /> 
 
-### 💘 Result Screen
-| Light Mode ☀️ | Dark Mode 🌙 |
-|:---:|:---:|
-| <img src="./screenshots/result-light.png" width="250" /> | <img src="./screenshots/result-dark.png" width="250" /> |
+
+
+### Light Mode ☀️
+<img src="./screenshots/l-home.jpg" width="250" />
 
 ---
 
