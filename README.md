@@ -11,10 +11,8 @@
 
 Check out the **Light Mode** vs **Dark Mode** design:
 
-### 🏠 Home Screen
-| Light Mode ☀️ | Dark Mode 🌙 |
-|:---:|:---:|
-| <img src="./screenshots/home-light.png" width="250" /> | <img src="./screenshots/home-dark.png" width="250" /> |
+### 🏠 Dark Mode 🌙
+| <img src="./screenshots/d-home.jpg" width="250" /> | <img src="./screenshots/d-cal.jpg" width="250" /> |
 
 ### 💘 Result Screen
 | Light Mode ☀️ | Dark Mode 🌙 |
