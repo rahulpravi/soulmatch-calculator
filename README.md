@@ -48,7 +48,7 @@ To run this project locally:
 
 Click below to download the Android APK directly:
 
-<a href="LINK_PASTE_HERE">
+<a href="https://drive.google.com/file/d/1F0kPYudFSnOkGKcCJLHPC3waWx7SAMAx/view?usp=drivesdk">
   <img src="https://img.shields.io/badge/Download-APK-success?style=for-the-badge&logo=android&logoColor=white&color=3DDC84" alt="Download APK" height="50" />
 </a>
 
