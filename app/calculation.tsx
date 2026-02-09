@@ -1,135 +1,141 @@
 import { useEffect, useState } from 'react';
-import { ScrollView, Text, View, Pressable } from 'react-native';
-import { useNavigation } from 'expo-router';
-import Animated, {
-  useSharedValue,
-  useAnimatedStyle,
-  withTiming,
+import { View, Text, StyleSheet } from 'react-native';
+import { useRouter } from 'expo-router';
+import Animated, { 
+  useSharedValue, 
+  useAnimatedStyle, 
+  withRepeat, 
+  withTiming, 
+  withSequence,
   Easing,
+  runOnJS
 } from 'react-native-reanimated';
 import { ScreenContainer } from '@/components/screen-container';
 import { useCalculation } from '@/lib/calculation-context';
-import { useColors } from '@/hooks/use-colors';
-
-const ANIMATION_DURATION = 4000; // 4 seconds
 
 export default function CalculationScreen() {
-  const navigation = useNavigation();
-  const colors = useColors();
+  const router = useRouter();
   const { calculationData } = useCalculation();
-  const [displayedSteps, setDisplayedSteps] = useState<string[]>([]);
-  const [isComplete, setIsComplete] = useState(false);
+  const [percent, setPercent] = useState(0);
 
-  const progressValue = useSharedValue(0);
+  // Animation Values
+  const scale = useSharedValue(1);
+  const opacity = useSharedValue(1);
 
   useEffect(() => {
+    // Safety check: If no data, go back
     if (!calculationData) {
-      navigation.goBack();
+      router.back();
       return;
     }
 
-    // Animate progress bar
-    progressValue.value = withTiming(100, {
-      duration: ANIMATION_DURATION,
-      easing: Easing.linear,
-    });
+    // 1. Heartbeat Animation (Scale Up & Down)
+    scale.value = withRepeat(
+      withSequence(
+        withTiming(1.2, { duration: 400, easing: Easing.ease }), // Expand
+        withTiming(1, { duration: 400, easing: Easing.ease })    // Shrink
+      ),
+      -1, // Loop forever
+      true // Reverse
+    );
 
-    // Simulate terminal text scrolling
-    const totalSteps = calculationData.steps.length + 3;
-    const stepDuration = ANIMATION_DURATION / totalSteps;
+    // 2. Text Fade Animation
+    opacity.value = withRepeat(
+      withSequence(
+        withTiming(0.5, { duration: 800 }),
+        withTiming(1, { duration: 800 })
+      ),
+      -1,
+      true
+    );
 
-    const steps: string[] = [];
-    let stepIndex = 0;
-
-    // Initial line
-    steps.push('$ soulmatch-calc --calculate');
-    steps.push(`> Input: "${calculationData.name1}" + "${calculationData.condition}" + "${calculationData.name2}"`);
-    steps.push('> Processing...');
-
-    setDisplayedSteps([...steps]);
-
-    // Add algorithm steps
-    const stepInterval = setInterval(() => {
-      if (stepIndex < calculationData.steps.length) {
-        const step = calculationData.steps[stepIndex];
-        const newStep = `> ${step.description}: [${step.array.join(', ')}]`;
-        steps.push(newStep);
-        setDisplayedSteps([...steps]);
-        stepIndex++;
-      } else {
-        clearInterval(stepInterval);
-        // Final result
+    // 3. Percentage Counter (0% to 100%)
+    let current = 0;
+    const interval = setInterval(() => {
+      current += 1;
+      setPercent(current);
+      
+      if (current >= 100) {
+        clearInterval(interval);
+        // Navigate to Result screen after a short delay
         setTimeout(() => {
-          steps.push(`> Result: ${calculationData.percentage}%`);
-          steps.push('$ Complete!');
-          setDisplayedSteps([...steps]);
-          setIsComplete(true);
-
-          // Auto-navigate to result after animation completes
-          setTimeout(() => {
-            (navigation as any).navigate('result');
-          }, 500);
-        }, stepDuration);
+          router.replace('/result');
+        }, 500);
       }
-    }, stepDuration);
+    }, 30); // Speed of counting (Total approx 3 seconds)
 
-    return () => clearInterval(stepInterval);
-  }, [calculationData, navigation, progressValue]);
+    return () => clearInterval(interval);
+  }, []);
 
-  const progressAnimatedStyle = useAnimatedStyle(() => {
-    return {
-      width: `${progressValue.value}%`,
-    };
-  });
+  // Animated Styles
+  const heartStyle = useAnimatedStyle(() => ({
+    transform: [{ scale: scale.value }],
+  }));
+
+  const textStyle = useAnimatedStyle(() => ({
+    opacity: opacity.value,
+  }));
 
   return (
-    <ScreenContainer className="p-6" containerClassName="bg-black">
-      <View className="flex-1 gap-4">
-        {/* Terminal Header */}
-        <View className="border-b border-terminal pb-2">
-          <Text className="text-terminal font-mono text-xs">
-            SoulMatch Terminal v1.0
-          </Text>
-        </View>
+    <ScreenContainer>
+      <View style={styles.container}>
+        
+        {/* Pulsing Heart */}
+        <Animated.View style={[styles.heartContainer, heartStyle]}>
+          <Text style={styles.heartIcon}>❤️</Text>
+        </Animated.View>
 
-        {/* Terminal Output */}
-        <ScrollView className="flex-1 bg-black rounded">
-          <View className="p-3 gap-1">
-            {displayedSteps.map((step, index) => (
-              <Text
-                key={index}
-                className="text-terminal font-mono text-xs leading-relaxed"
-              >
-                {step}
-              </Text>
-            ))}
-            {isComplete && (
-              <Text className="text-terminal font-mono text-xs mt-2">
-                ▌
-              </Text>
-            )}
-          </View>
-        </ScrollView>
+        {/* Percentage Text */}
+        <Text style={styles.percentText}>{percent}%</Text>
 
-        {/* Progress Bar */}
-        <View className="gap-2">
-          <View className="bg-surface rounded-full h-2 overflow-hidden border border-border">
-            <Animated.View
-              style={[
-                {
-                  height: '100%',
-                  backgroundColor: colors.primary,
-                  borderRadius: 999,
-                },
-                progressAnimatedStyle,
-              ]}
-            />
-          </View>
-          <Text className="text-xs text-muted text-center">
-            Calculating compatibility...
-          </Text>
-        </View>
+        {/* Status Text */}
+        <Animated.Text style={[styles.statusText, textStyle]}>
+          Analyzing connection...
+        </Animated.Text>
+        
+        <Text style={styles.namesText}>
+          {calculationData?.name1} + {calculationData?.name2}
+        </Text>
+
       </View>
     </ScreenContainer>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#0f172a', // Dark background
+  },
+  heartContainer: {
+    marginBottom: 20,
+    shadowColor: '#ff007f',
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.8,
+    shadowRadius: 20,
+    elevation: 10,
+  },
+  heartIcon: {
+    fontSize: 100, // Big Heart
+  },
+  percentText: {
+    fontSize: 48,
+    fontWeight: 'bold',
+    color: '#ffffff',
+    marginBottom: 10,
+    fontVariant: ['tabular-nums'], // Keeps numbers steady
+  },
+  statusText: {
+    fontSize: 18,
+    color: '#38bdf8', // Light Blue
+    marginBottom: 30,
+    letterSpacing: 1,
+  },
+  namesText: {
+    fontSize: 14,
+    color: '#64748b',
+    textTransform: 'capitalize',
+  }
+});
